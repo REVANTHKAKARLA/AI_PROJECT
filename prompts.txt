@@ -1,0 +1,24 @@
+You are an expert Python developer with 10+ years of experience in software engineering and automotive data systems. 
+Task: Generate a **complete, multi-file Python project** for a Fleet Management System that meets high standards of readability, maintainability, efficiency, and performance.
+
+Project Context:
+- Multi-file structure:
+    1. vehicle.py → Defines a Vehicle class with attributes: id (str), speed (int), temperature (int), fuel (int). Include input validation, __str__/__repr__ methods, and docstrings.
+    2. fleet_manager.py → Defines FleetManager class to manage a list of vehicles. Includes:
+        - Methods to compute average speed, temperature, fuel.
+        - Methods to check alert conditions:
+            - temperature > 110 → "Critical Overheating"
+            - fuel < 15% → "Low Fuel Warning"
+        - Handles empty vehicle list or invalid data gracefully.
+    3. main.py → Loads vehicle data from a CSV file (id,speed,temperature,fuel), creates Vehicle objects, manages them using FleetManager, and prints summary, averages, and alerts.
+
+Constraints & Standards:
+- Follow **PEP8** coding style.
+- Include **docstrings and inline comments** explaining logic and purpose.
+- **Validate all inputs** (CSV, missing values, invalid types).
+- Efficiently handle large datasets.
+- Include **edge-case handling**: empty CSV, missing or invalid values.
+- Compute averages and alerts with **verified correctness**.
+- Suggest **alternative approaches or optimizations** in comments.
+- Include **sample outputs** based on the following CSV data:
+
