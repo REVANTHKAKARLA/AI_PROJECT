@@ -3,6 +3,11 @@ main.py
 
 Entry point for the Fleet Management System.
 Loads vehicle data from a CSV file, manages the fleet, and prints reports.
+
+Returns conventional exit codes for programmatic use:
+- 0: success
+- 1: missing CSV file
+- 2: usage error (no CSV argument provided)
 """
 
 import sys
@@ -24,7 +29,7 @@ def load_vehicles_from_csv(file_path: str):
     return _load_vehicles_from_csv(file_path)
 
 
-def main(argv: Optional[list[str]] = None) -> None:
+def main(argv: Optional[list[str]] = None) -> int:
     """
     Main function to run the Fleet Management System.
     """
@@ -47,11 +52,16 @@ def main(argv: Optional[list[str]] = None) -> None:
 
     print("Fleet Management System\n" + "=" * 25)
 
+    # Handle usage when no csv path available (only program name)
+    if len(argv) < 2 and CSV_FILE is None:
+        print("Usage: python main.py <vehicles.csv> [config.json]")
+        return 2
+
     try:
         vehicles = load_vehicles_from_csv(file_path)
     except FileNotFoundError:
         print("Error: CSV file not found. Exiting.")
-        sys.exit(1)
+        return 1
 
     fleet = FleetManager(vehicles)
 
@@ -77,8 +87,10 @@ def main(argv: Optional[list[str]] = None) -> None:
     else:
         print("  No alerts.")
 
+    return 0
+
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
 
 

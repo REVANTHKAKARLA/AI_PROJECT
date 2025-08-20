@@ -13,6 +13,8 @@ from typing import Iterable, Iterator, List, Optional
 
 from vehicle import Vehicle
 
+logger = logging.getLogger(__name__)
+
 
 def iter_vehicles_from_csv(file_path: str, strict: bool = False) -> Iterator[Vehicle]:
     """
@@ -29,7 +31,7 @@ def iter_vehicles_from_csv(file_path: str, strict: bool = False) -> Iterator[Veh
                     msg = f"Row {idx}: Missing values. Skipping row: {row}"
                     if strict:
                         raise ValueError(msg)
-                    logging.error(msg)
+                    logger.error(msg)
                     continue
                 try:
                     yield Vehicle(*row[:4])  # ignore extra columns
@@ -37,9 +39,9 @@ def iter_vehicles_from_csv(file_path: str, strict: bool = False) -> Iterator[Veh
                     msg = f"Row {idx}: {e}. Skipping row."
                     if strict:
                         raise ValueError(msg)
-                    logging.error(msg)
+                    logger.error(msg)
     except FileNotFoundError:
-        logging.critical(f"CSV file '{file_path}' not found.")
+        logger.critical(f"CSV file '{file_path}' not found.")
         raise
 
 

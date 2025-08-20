@@ -10,6 +10,8 @@ import logging
 from vehicle import Vehicle
 from config import CRITICAL_OVERHEAT_TEMP, LOW_FUEL_THRESHOLD
 
+logger = logging.getLogger(__name__)
+
 
 class FleetManager:
     """
@@ -61,11 +63,11 @@ class FleetManager:
             if v.temperature > CRITICAL_OVERHEAT_TEMP:
                 msg = "Critical Overheating"
                 alerts.append({"id": v.id, "alert": msg})
-                logging.warning(f"Vehicle {v.id}: {msg} (Temperature: {v.temperature}°C)")
+                logger.warning("Vehicle %s: %s (Temperature: %s°C)", v.id, msg, v.temperature)
             if v.fuel < LOW_FUEL_THRESHOLD:
                 msg = "Low Fuel Warning"
                 alerts.append({"id": v.id, "alert": msg})
-                logging.warning(f"Vehicle {v.id}: {msg} (Fuel: {v.fuel}%)")
+                logger.warning("Vehicle %s: %s (Fuel: %s%%)", v.id, msg, v.fuel)
         return alerts
 
     def summary(self) -> str:
